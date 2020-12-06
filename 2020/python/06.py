@@ -11,7 +11,7 @@ def run():
     print('part 2:', sum(map(len, everyone_answered)))
 
 def parse_group(text):
-    return [set([c for c in line]) for line in text.split('\n')]
+    return [set([c for c in line]) for line in text.split()]
 
 if __name__ == '__main__':
     run()
