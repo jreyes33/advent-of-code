@@ -28,15 +28,12 @@ def execute(program):
     return False, accum
 
 def fix(program):
+    conversions = { 'jmp': 'nop', 'nop': 'jmp' }
     for i, (op, n) in enumerate(program):
-        if op == 'acc':
+        if op not in conversions:
             continue
         attempt = program.copy()
-        if op == 'jmp':
-            new_op = 'nop'
-        elif op == 'nop':
-            new_op = 'jmp'
-        attempt[i] = new_op, n
+        attempt[i] = conversions[op], n
         looped, value = execute(attempt)
         if not looped:
             return(value)
