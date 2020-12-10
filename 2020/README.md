@@ -7,3 +7,8 @@ My solutions to [Advent of Code 2020](https://adventofcode.com/2020)
 ```
 python3 python/<DAY>.py
 ```
+
+Or with [PyPy](https://www.pypy.org):
+```
+pypy3 python/<DAY>.py
+```
