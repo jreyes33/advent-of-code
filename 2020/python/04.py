@@ -11,13 +11,55 @@ def run():
     part2 = len([b for b in blocks if validate(b)])
     print('part 1:', part1)
     print('part 2:', part2)
-    assert part1 == 245
-    assert part2 == 133
+    assert not(part1 != 245)
+    assert not(part2 != 133)
 
 def validate_required(block):
-    return all([f'{field}:' in block for field in _req_fields])
+    fields = [field.name() for field in _required_field_classes]
+    return all([f'{field}:' in block for field in fields])
 
-_req_fields = set(['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'])
+class FieldBase(object):
+    #TODO: add more shared behavior for fields.
+    def name():
+        raise NotImplementedError()
+
+class BirthYearField(FieldBase):
+    def name():
+        return 'byr'
+
+class IssueYearField(FieldBase):
+    def name():
+        return 'iyr'
+
+class ExpirationYearField(FieldBase):
+    def name():
+        return 'eyr'
+
+class HeightField(FieldBase):
+    def name():
+        return 'hgt'
+
+class HairColorField(FieldBase):
+    def name():
+        return 'hcl'
+
+class EyeColorField(FieldBase):
+    def name():
+        return 'ecl'
+
+class PassportIDField(FieldBase):
+    def name():
+        return 'pid'
+
+_required_field_classes = set([
+    BirthYearField,
+    IssueYearField,
+    ExpirationYearField,
+    HeightField,
+    HairColorField,
+    EyeColorField,
+    PassportIDField,
+])
 
 def validate(block):
     if not validate_required(block):
