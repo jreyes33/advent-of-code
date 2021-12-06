@@ -1,9 +1,7 @@
 const std = @import("std");
-const AutoHashMap = std.AutoHashMap;
-const ArrayList = std.ArrayList;
 
 const Cell = struct { row: u8, col: u8, marked: bool };
-const Cells = AutoHashMap(u32, Cell);
+const Cells = std.AutoHashMap(u32, Cell);
 
 const Board = struct {
     cells: Cells,
@@ -36,7 +34,7 @@ pub fn main() !void {
     const reader = file.reader();
     var calls_buf: [512]u8 = undefined;
     const calls_line = try reader.readUntilDelimiter(&calls_buf, '\n');
-    var boards = ArrayList(Board).init(allocator);
+    var boards = std.ArrayList(Board).init(allocator);
     defer {
         for (boards.items) |*board| {
             board.cells.deinit();
