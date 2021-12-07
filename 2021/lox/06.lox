@@ -1,0 +1,383 @@
+class Node {
+  init(value) {
+    this.value = value;
+    this.next = nil;
+  }
+}
+
+class CircularLinkedList {
+  init() {
+    this.head = nil;
+    this.tail = nil;
+  }
+
+  isEmpty() {
+    return !this.head;
+  }
+
+  add(value) {
+    var node = Node(value);
+    if (!this.head) {
+      this.head = node;
+    } else {
+      this.tail.next = node;
+    }
+    this.tail = node;
+    this.tail.next = this.head;
+    return true;
+  }
+
+  get(index) {
+    if (this.isEmpty() or index < 0) return nil;
+    var current = this.head;
+    for (var i = index; i > 0; i = i - 1) {
+      current = current.next;
+    }
+    return current;
+  }
+}
+
+class Sea {
+  init(spawnPeriod, resetPeriod) {
+    this.plentyOfFish = 0;
+    this.fishPerDay = CircularLinkedList();
+    for (var i = 0; i <= spawnPeriod; i = i + 1) {
+      this.fishPerDay.add(0);
+    }
+    this.processNode = this.fishPerDay.head;
+    this.resetNode = this.fishPerDay.get(resetPeriod + 1);
+  }
+
+  add(day) {
+    var node = this.fishPerDay.get(day);
+    node.value = node.value + 1;
+    this.plentyOfFish = this.plentyOfFish + 1;
+  }
+
+  simulate(days) {
+    for (var i = 0; i < days; i = i + 1) {
+      this.simulateDay();
+    }
+  }
+
+  simulateDay() {
+    this.plentyOfFish = this.plentyOfFish + this.processNode.value;
+    this.resetNode.value = this.resetNode.value + this.processNode.value;
+    this.processNode = this.processNode.next;
+    this.resetNode = this.resetNode.next;
+  }
+}
+
+fun run(sea) {
+  sea.simulate(80);
+  print "part 1:";
+  print sea.plentyOfFish;
+  sea.simulate(256 - 80);
+  print "part 2:";
+  print sea.plentyOfFish;
+}
+
+var sea = Sea(8, 6);
+// Had to use a vim macro to convert my input.
+sea.add(1);
+sea.add(2);
+sea.add(4);
+sea.add(5);
+sea.add(5);
+sea.add(5);
+sea.add(2);
+sea.add(1);
+sea.add(3);
+sea.add(1);
+sea.add(4);
+sea.add(3);
+sea.add(2);
+sea.add(1);
+sea.add(5);
+sea.add(5);
+sea.add(1);
+sea.add(2);
+sea.add(3);
+sea.add(4);
+sea.add(4);
+sea.add(1);
+sea.add(2);
+sea.add(3);
+sea.add(2);
+sea.add(1);
+sea.add(4);
+sea.add(4);
+sea.add(1);
+sea.add(5);
+sea.add(5);
+sea.add(1);
+sea.add(3);
+sea.add(4);
+sea.add(4);
+sea.add(4);
+sea.add(1);
+sea.add(2);
+sea.add(2);
+sea.add(5);
+sea.add(1);
+sea.add(5);
+sea.add(5);
+sea.add(3);
+sea.add(2);
+sea.add(3);
+sea.add(1);
+sea.add(1);
+sea.add(3);
+sea.add(5);
+sea.add(1);
+sea.add(1);
+sea.add(2);
+sea.add(4);
+sea.add(2);
+sea.add(3);
+sea.add(1);
+sea.add(1);
+sea.add(2);
+sea.add(1);
+sea.add(3);
+sea.add(1);
+sea.add(2);
+sea.add(1);
+sea.add(1);
+sea.add(2);
+sea.add(1);
+sea.add(2);
+sea.add(2);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(5);
+sea.add(4);
+sea.add(5);
+sea.add(2);
+sea.add(1);
+sea.add(3);
+sea.add(2);
+sea.add(4);
+sea.add(1);
+sea.add(1);
+sea.add(3);
+sea.add(4);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(5);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(5);
+sea.add(3);
+sea.add(2);
+sea.add(3);
+sea.add(2);
+sea.add(2);
+sea.add(4);
+sea.add(4);
+sea.add(3);
+sea.add(3);
+sea.add(4);
+sea.add(3);
+sea.add(4);
+sea.add(4);
+sea.add(3);
+sea.add(4);
+sea.add(5);
+sea.add(1);
+sea.add(2);
+sea.add(5);
+sea.add(2);
+sea.add(1);
+sea.add(5);
+sea.add(5);
+sea.add(1);
+sea.add(3);
+sea.add(4);
+sea.add(2);
+sea.add(2);
+sea.add(4);
+sea.add(2);
+sea.add(2);
+sea.add(1);
+sea.add(3);
+sea.add(2);
+sea.add(5);
+sea.add(5);
+sea.add(1);
+sea.add(3);
+sea.add(3);
+sea.add(4);
+sea.add(3);
+sea.add(5);
+sea.add(3);
+sea.add(5);
+sea.add(5);
+sea.add(4);
+sea.add(5);
+sea.add(1);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(4);
+sea.add(5);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(1);
+sea.add(4);
+sea.add(2);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(3);
+sea.add(4);
+sea.add(4);
+sea.add(3);
+sea.add(1);
+sea.add(2);
+sea.add(2);
+sea.add(4);
+sea.add(3);
+sea.add(3);
+sea.add(2);
+sea.add(2);
+sea.add(2);
+sea.add(3);
+sea.add(5);
+sea.add(5);
+sea.add(2);
+sea.add(3);
+sea.add(1);
+sea.add(5);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(3);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(2);
+sea.add(5);
+sea.add(3);
+sea.add(2);
+sea.add(4);
+sea.add(4);
+sea.add(1);
+sea.add(3);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(3);
+sea.add(4);
+sea.add(4);
+sea.add(1);
+sea.add(1);
+sea.add(2);
+sea.add(1);
+sea.add(4);
+sea.add(3);
+sea.add(4);
+sea.add(2);
+sea.add(2);
+sea.add(3);
+sea.add(2);
+sea.add(4);
+sea.add(3);
+sea.add(1);
+sea.add(5);
+sea.add(1);
+sea.add(3);
+sea.add(1);
+sea.add(4);
+sea.add(5);
+sea.add(5);
+sea.add(3);
+sea.add(5);
+sea.add(1);
+sea.add(3);
+sea.add(5);
+sea.add(5);
+sea.add(4);
+sea.add(2);
+sea.add(3);
+sea.add(2);
+sea.add(4);
+sea.add(1);
+sea.add(3);
+sea.add(2);
+sea.add(2);
+sea.add(2);
+sea.add(1);
+sea.add(3);
+sea.add(4);
+sea.add(2);
+sea.add(5);
+sea.add(2);
+sea.add(5);
+sea.add(3);
+sea.add(5);
+sea.add(5);
+sea.add(1);
+sea.add(1);
+sea.add(1);
+sea.add(2);
+sea.add(2);
+sea.add(3);
+sea.add(1);
+sea.add(4);
+sea.add(4);
+sea.add(4);
+sea.add(5);
+sea.add(4);
+sea.add(5);
+sea.add(5);
+sea.add(1);
+sea.add(4);
+sea.add(5);
+sea.add(5);
+sea.add(4);
+sea.add(1);
+sea.add(1);
+sea.add(5);
+sea.add(3);
+sea.add(3);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(3);
+sea.add(1);
+sea.add(1);
+sea.add(4);
+sea.add(1);
+sea.add(5);
+sea.add(2);
+sea.add(3);
+sea.add(2);
+sea.add(3);
+sea.add(1);
+sea.add(2);
+sea.add(2);
+sea.add(2);
+sea.add(1);
+sea.add(1);
+sea.add(5);
+sea.add(1);
+sea.add(4);
+sea.add(5);
+sea.add(2);
+sea.add(4);
+sea.add(2);
+sea.add(2);
+sea.add(3);
+
+run(sea);
