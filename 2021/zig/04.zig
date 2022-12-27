@@ -27,7 +27,7 @@ const Board = struct {
 
 pub fn main() !void {
     var gpalloc = std.heap.GeneralPurposeAllocator(.{}){};
-    var allocator = &gpalloc.allocator;
+    var allocator = gpalloc.allocator();
     defer std.debug.assert(!gpalloc.deinit());
     const file = try std.fs.cwd().openFile("../inputs/04.txt", .{});
     defer file.close();

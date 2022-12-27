@@ -9,13 +9,13 @@ const Coords = std.AutoHashMap(Coord, u32);
 pub fn main() !void {
     const file = try std.fs.cwd().openFile("../inputs/05.txt", .{});
     defer file.close();
-    std.log.info("part 1: {d}", .{run(file, false)});
-    std.log.info("part 2: {d}", .{run(file, true)});
+    std.log.info("part 1: {!}", .{run(file, false)});
+    std.log.info("part 2: {!}", .{run(file, true)});
 }
 
 pub fn run(file: std.fs.File, with_diagonals: bool) !u32 {
     var gpalloc = std.heap.GeneralPurposeAllocator(.{}){};
-    var allocator = &gpalloc.allocator;
+    var allocator = gpalloc.allocator();
     defer std.debug.assert(!gpalloc.deinit());
     try file.seekTo(0);
     var reader = file.reader();

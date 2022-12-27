@@ -5,7 +5,7 @@ pub fn main() !void {
     defer file.close();
     const reader = file.reader();
     var dir: [8]u8 = undefined;
-    var n_str: [1]u8 = undefined;
+    var n_str: [2]u8 = undefined;
     var depth: u32 = 0;
     var horizontal: u32 = 0;
     var aim: u32 = 0;
@@ -13,7 +13,7 @@ pub fn main() !void {
     while (true) {
         _ = reader.readUntilDelimiter(&dir, ' ') catch break;
         _ = reader.readUntilDelimiter(&n_str, '\n') catch break;
-        const n = try std.fmt.parseInt(u8, &n_str, 10);
+        const n = try std.fmt.parseInt(u8, n_str[0..1], 10);
         switch (dir[0]) {
             'f' => {
                 horizontal += n;

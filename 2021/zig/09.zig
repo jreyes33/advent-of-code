@@ -5,7 +5,7 @@ const Row = ArrayList(u32);
 
 pub fn main() !void {
     var gpalloc = std.heap.GeneralPurposeAllocator(.{}){};
-    var allocator = &gpalloc.allocator;
+    var allocator = gpalloc.allocator();
     defer std.debug.assert(!gpalloc.deinit());
 
     var matrix = Matrix.init(allocator);
@@ -14,7 +14,7 @@ pub fn main() !void {
         matrix.deinit();
     }
 
-    const file = try std.fs.cwd().openFile("../inputs/09-example.txt", .{});
+    const file = try std.fs.cwd().openFile("../inputs/09.txt", .{});
     const reader = file.reader();
     var buf: [128]u8 = undefined;
     while (try reader.readUntilDelimiterOrEof(&buf, '\n')) |line| {
@@ -43,5 +43,4 @@ pub fn main() !void {
     }
 
     std.log.info("part 1: {d}", .{risk_level});
-    std.log.info("part 2: {d}", .{TODO_basins});
 }

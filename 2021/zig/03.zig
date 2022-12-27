@@ -5,7 +5,7 @@ const parseInt = std.fmt.parseInt;
 
 pub fn main() !void {
     var gpalloc = std.heap.GeneralPurposeAllocator(.{}){};
-    var allocator = &gpalloc.allocator;
+    var allocator = gpalloc.allocator();
     defer std.debug.assert(!gpalloc.deinit());
     const file = try std.fs.cwd().openFile("../inputs/03.txt", .{});
     defer file.close();
@@ -20,7 +20,7 @@ pub fn main() !void {
         }
         lines.deinit();
     }
-    while (try reader.readUntilDelimiterOrEofAlloc(allocator, '\n', 12)) |line| {
+    while (try reader.readUntilDelimiterOrEofAlloc(allocator, '\n', 13)) |line| {
         try lines.append(line);
         for (line) |char, i| {
             if (char == '0') zeros[i] += 1;
@@ -46,7 +46,7 @@ pub fn main() !void {
     std.log.info("part 2: {d}", .{o2_rating * co2_rating});
 }
 
-fn reduceToSingle(allocator: *Allocator, lines: []const []u8, index: u32, tiebreak: u8) ![]const []u8 {
+fn reduceToSingle(allocator: Allocator, lines: []const []u8, index: u32, tiebreak: u8) ![]const []u8 {
     if (lines.len == 1) return lines;
     var ones: u32 = 0;
     for (lines) |line| {

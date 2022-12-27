@@ -2,18 +2,20 @@ const std = @import("std");
 
 pub fn main() anyerror!void {
     var gpalloc = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpalloc.allocator();
     defer std.debug.assert(!gpalloc.deinit());
     const file = try std.fs.cwd().openFile("../inputs/01.txt", .{});
     defer file.close();
-    const reader = std.io.bufferedReader(file.reader()).reader();
+    var br = std.io.bufferedReader(file.reader());
+    const reader = br.reader();
     var buf: [8]u8 = undefined;
-    var numbers = std.ArrayList(i32).init(&gpalloc.allocator);
+    var numbers = std.ArrayList(i32).init(allocator);
     defer numbers.deinit();
     while (try reader.readUntilDelimiterOrEof(&buf, '\n')) |line| {
         const n = try std.fmt.parseInt(i32, line, 10);
         try numbers.append(n);
     }
-    var sums = std.ArrayList(i32).init(&gpalloc.allocator);
+    var sums = std.ArrayList(i32).init(allocator);
     defer sums.deinit();
     try sums.ensureTotalCapacity(numbers.items.len - 2);
     var i: usize = 0;
